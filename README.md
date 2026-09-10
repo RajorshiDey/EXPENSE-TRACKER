@@ -1,3 +1,5 @@
+# ENTIRE WORKING FLOW AND APPROACH #
+
 ## STEP 1: Set up Express + MongoDB connection ##
 * Creating db.js inside '/config' folder
 * In db.js, we will write a function named 'connectDB' that will connect with the MongoDB URI (**NOTE:** The connectDB function will use async-await and try-catch block)
