@@ -1,0 +1,25 @@
+{
+  "name": "expense-tracker",
+  "version": "1.0.0",
+  "description": "A service that can help users store daily expenses and track their expenses",
+  "keywords": [
+    "expense",
+    "money",
+    "track"
+  ],
+  "license": "ISC",
+  "author": "Rajorshi Dey",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.9.5",
+    "nodemon": "^3.1.14"
+  }
+}
