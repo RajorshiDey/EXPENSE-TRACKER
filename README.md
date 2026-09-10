@@ -23,7 +23,7 @@
     5. date
     6. timestamps
 
-### STEP 3: Create Registration API ###
+### STEP 4: Create Registration API ###
 
 #### Flow of Registration ####
 
