@@ -1,3 +1,7 @@
+# Expense Tracker API – Backend
+### Approach Documentation
+
+A secure REST API for expense management with Express.js, MongoDB, JWT authentication, and bcrypt password hashing.
 
 
 ## STEP 1: Set up Express + MongoDB connection ##
