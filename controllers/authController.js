@@ -44,6 +44,46 @@ const register = async (req, res) => {
     }
 };
 
+const login = async (req, res) => {
+    try {
+
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Email and password are required"
+            });
+        }
+
+        const user = await authService.loginUser(email, password);
+
+        res.cookie(
+            "token",
+            user.token,
+            {
+                httpOnly: true,
+                secure: true,
+                maxAge: 2 * 24 * 60 * 60 * 1000 // 2 days
+            }
+        )
+
+        return res.status(200).json({
+            success: true,
+            message: "User logged in successfully",
+            user
+        });
+
+    } catch (err) {
+        console.error("LOGIN ERROR:", err.message);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+}
+
 module.exports = {
-    register
+    register,
+    login
 };
