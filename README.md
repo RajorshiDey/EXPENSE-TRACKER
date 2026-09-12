@@ -149,3 +149,17 @@ router.get("/profile", protect, (req, res) => {
 ```
 
 Here, protect is the middleware function
+
+## STEP 7: Creating Logout Feature ##
+
+* We will just remove the jwt token from cookies that will logout the user 
+* Creating a logout( ) inside authController.js where the token is removed from cookies and export it
+* Import the logout( ) inside auth routes and call it
+
+Logic: 
+```
+res.clearCookie("token", {
+        httpOnly: true,
+        secure: true
+    });
+```

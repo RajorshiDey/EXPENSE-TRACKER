@@ -1,9 +1,10 @@
-const {register, login} = require('../controllers/authController');
+const {register, login, logout} = require('../controllers/authController');
 const {protect} = require('../middlewares/authMiddleware');
 
 const router = require('express').Router();
 
 router.post('/register', register);
+router.post('/logout', logout);
 router.post('/login', login);
 
 router.get("/profile", protect, (req, res) => {
