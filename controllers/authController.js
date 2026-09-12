@@ -45,6 +45,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+
     try {
 
         const { email, password } = req.body;
@@ -58,12 +59,13 @@ const login = async (req, res) => {
 
         const user = await authService.loginUser(email, password);
 
+
         res.cookie(
             "token",
             user.token,
             {
                 httpOnly: true,
-                secure: true,
+                secure: false,
                 maxAge: 2 * 24 * 60 * 60 * 1000 // 2 days
             }
         )
@@ -75,18 +77,30 @@ const login = async (req, res) => {
         });
 
     } catch (err) {
+
         console.error("LOGIN ERROR:", err.message);
+
+        if (
+            err.message === "User not found" ||
+            err.message === "Invalid password"
+        ) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password"
+            });
+        }
+
         return res.status(500).json({
             success: false,
             message: "Internal server error"
         });
     }
-}
+};
 
 const logout = (req, res) => {
     res.clearCookie("token", {
         httpOnly: true,
-        secure: true
+        secure: false
     });
 
     return res.status(200).json({
