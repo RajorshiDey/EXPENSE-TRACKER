@@ -6,10 +6,27 @@ const app = express();
 
 app.use(express.json())
 app.use(cookieParser());
-app.use(cors({
-    origin: ["http://localhost:5500", "https://exxpense-trracker.netlify.app/"],
-    credentials: true
-}));
+// Allowed frontend origins
+const allowedOrigins = [
+  "https://exxpense-trracker.netlify.app",
+  "http://localhost:5500",
+  "http://127.0.0.1:5500"
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps, curl, Postman)
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Blocked by CORS"));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+  })
+);
 
 
 const authRoutes = require('./routes/authRoutes');
