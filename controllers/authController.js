@@ -65,7 +65,8 @@ const login = async (req, res) => {
             user.token,
             {
                 httpOnly: true,
-                secure: false,
+                secure: true,        // REQUIRED: Must be true over HTTPS
+                sameSite: "none",    // REQUIRED: Must be explicitly string "none" for cross-origin
                 maxAge: 2 * 24 * 60 * 60 * 1000 // 2 days
             }
         )
