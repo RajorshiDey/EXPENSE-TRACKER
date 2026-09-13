@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json())
 app.use(cookieParser());
 app.use(cors({
-    origin: "http://localhost:5500",
+    origin: ["http://localhost:5500", "https://exxpense-trracker.netlify.app/"],
     credentials: true
 }));
 
