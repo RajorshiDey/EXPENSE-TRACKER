@@ -163,3 +163,67 @@ res.clearCookie("token", {
         secure: true
     });
 ```
+
+## STEP 8: CRUD Operations ##
+
+Data Flow:
+```
+Route
+  ↓
+Controller
+  ↓
+Service
+  ↓
+Repository
+  ↓
+MongoDB
+```
+
+Authentication Flow:
+```
+Request
+  ↓
+protect middleware
+  ↓
+req.user.userId
+  ↓
+CRUD operation
+```
+
+* We will create expenseRepository.js where all the database related functions will be written
+#### Functions in expenseRepository.js: ####
+```
+createExpense() -> this will create a new Expense model in the database
+
+findExpenseByUser() -> returns all the expense created by the given user id
+
+findExpenseById() -> finds one expense from the expense id and user id
+
+updateExpense() -> finds and updates one expense from the expense id and user id
+
+deleteExpense() -> finds and deletes one expense from the expense id and user id
+```
+
+* We will create expenseService.js where we will write the business logic for those database related functions
+
+
+* We will create expenseController.js to connect the fuctions with http request data (Here we will use ```req.user.id``` for userId and ```req.params.id``` for expenseId)
+
+
+#### Routes for CRUD: ####
+
+```
+const express = require('express');
+const {createExpense, getExpenses, getExpense, updateExpense, deleteExpense} = require('../controllers/expenseController');
+const {protect} = require('../middlewares/authMiddleware');
+
+const router = express.Router();
+
+router.post('/', protect, createExpense);
+router.get('/', protect, getExpenses);
+router.get('/:id', protect, getExpense);
+router.put('/:id', protect, updateExpense);
+router.delete('/:id', protect, deleteExpense);
+
+module.exports = router;
+```
